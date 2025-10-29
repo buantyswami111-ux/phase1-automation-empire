@@ -1,0 +1,39 @@
+name: 🏛️ Deploy Apps Script to Google
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'google-sheets-webhook/**'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to Google Apps Script
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: 📦 Install Clasp
+        run: npm install -g @google/clasp
+      
+      - name: 🔐 Authenticate with Clasp
+        env:
+          CLASP_CREDENTIALS: ${{ secrets.CLASP_CREDENTIALS }}
+        run: |
+          echo "$CLASP_CREDENTIALS" > ~/.clasprc.json
+      
+      - name: 🚀 Push to Apps Script
+        working-directory: ./google-sheets-webhook
+        run: clasp push
+      
+      - name: ✅ Deployment Complete
+        run: echo "Apps Script deployment successful! 🏛️"
