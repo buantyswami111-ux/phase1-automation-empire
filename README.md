@@ -84,6 +84,33 @@ This repository serves as the version-controlled spine of your Phase 1 automatio
                                                            
                                                             - ---
 
+## 📚 Documentation
+
+- **[Quick Start Guide](QUICKSTART.md)** - Get running in 15 minutes
+- **[Setup Guide](SETUP.md)** - Complete installation instructions
+- **[Architecture Overview](architecture/system-overview.md)** - System design and data flows
+- **[Webhook Handler](google-sheets-webhook/webhook-handler.js)** - Apps Script webhook implementation
+- **[Gemini Digest](google-sheets-webhook/gemini-digest.js)** - AI-powered digest generator with GitHub integration
+
+## 🔧 Components
+
+| Component | Description | Documentation |
+|-----------|-------------|---------------|
+| **Automate Flows** | LlamaLab Automate JSON flows | [README](automate-flows/README.md) |
+| **Webhook Handler** | Apps Script webhook endpoint | [README](google-sheets-webhook/README.md) |
+| **Daily Digests** | AI-generated summaries | [README](daily-digests/README.md) |
+| **PC Federation** | Desktop automation scripts | [README](pc-federation/README.md) |
+| **Architecture** | System design docs | [README](architecture/README.md) |
+
+## 🤝 Contributing
+
+Contributions welcome! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Submit a pull request
+
+---
+
                                                             *"Rome wasn't automated in a day, but with proper foundations, your empire will be eternal."*
 
                                                             🏛️ **All roads lead to automation** 🏛️
