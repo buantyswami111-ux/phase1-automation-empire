@@ -1,0 +1,84 @@
+{
+  "name": "Tab A9 Voice Flow - Main Pipeline",
+  "description": "Voice command processing pipeline for Tab A9 automation empire",
+  "version": "1.0.0",
+  "created": "2024-10-29",
+  "flow": {
+    "trigger": {
+      "type": "voice_command",
+      "keywords": ["empire", "automate", "execute"],
+      "confidence_threshold": 0.7
+    },
+    "actions": [
+      {
+        "id": "parse_voice",
+        "type": "speech_to_text",
+        "engine": "google",
+        "output_variable": "voice_command"
+      },
+      {
+        "id": "extract_intent",
+        "type": "text_processing",
+        "patterns": [
+          {
+            "keyword": "log",
+            "action": "log_activity",
+            "parameters": ["activity_type", "description"]
+          },
+          {
+            "keyword": "status",
+            "action": "get_status",
+            "parameters": []
+          },
+          {
+            "keyword": "execute",
+            "action": "run_automation",
+            "parameters": ["automation_name"]
+          }
+        ],
+        "output_variable": "intent"
+      },
+      {
+        "id": "build_json",
+        "type": "json_builder",
+        "template": {
+          "source": "Tab A9",
+          "timestamp": "{timestamp}",
+          "action": "{intent.action}",
+          "parameters": "{intent.parameters}",
+          "voice_command": "{voice_command}",
+          "device_id": "{device_id}",
+          "status": "initiated"
+        },
+        "output_variable": "webhook_payload"
+      },
+      {
+        "id": "send_to_webhook",
+        "type": "http_request",
+        "method": "POST",
+        "url": "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{webhook_payload}",
+        "output_variable": "webhook_response"
+      },
+      {
+        "id": "speak_confirmation",
+        "type": "text_to_speech",
+        "text": "Command {intent.action} executed successfully",
+        "voice": "en-US-Standard-A"
+      }
+    ],
+    "error_handling": {
+      "on_error": "log_and_notify",
+      "retry_count": 3,
+      "fallback_action": "speak_error_message"
+    }
+  },
+  "notes": [
+    "Update webhook URL after deploying Apps Script",
+    "Ensure Google TTS permissions are granted",
+    "Test voice recognition accuracy in quiet environment"
+  ]
+}

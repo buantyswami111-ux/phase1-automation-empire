@@ -1,0 +1,49 @@
+# Clasp
+.clasp.json
+creds.json
+
+# Logs
+*.log
+logs/
+audit-logs/pc-activities/
+audit-logs/error-logs/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Secrets and credentials
+*.key
+*.pem
+secrets.json
+.env
+.env.local
+
+# Node modules (if added later)
+node_modules/
+package-lock.json
+
+# AutoHotkey compiled
+*.exe
+
+# Backup files
+*.bak
+*~
+
+# Large files
+*.zip
+*.tar.gz
+*.rar
